@@ -4,8 +4,11 @@ frameworkVersion: "3"
 
 provider:
   name: aws
+  architecture: arm64
   runtime: provided.al2
   region: ap-northeast-1
+  stage: dev
+  timeout: 60
 
 package:
   patterns:
@@ -16,9 +19,7 @@ functions:
   example-api:
     handler: cmd/api/main.go
     role: GoAuthorizerLambda
-    timeout: 30
     description: go echo lambda test
-    memorySize: 128
     events:
       - http:
           path: /{proxy+}
@@ -26,7 +27,7 @@ functions:
 
 custom:
   go:
-    cmd: GOARCH=amd64 GOOS=linux go build -ldflags="-s -w"
+    cmd: GOARCH=arm64 GOOS=linux go build -ldflags="-s -w"
     supportedRuntimes: ["provided.al2"]
     buildProvidedRuntimeAsBootstrap: true
 
