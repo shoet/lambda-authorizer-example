@@ -2,14 +2,14 @@
 
 .PHONY: clean
 clean: ## clean up
-	rm -rf cmd/bin
+	rm -rf .bin
 
-.PHONY: build-bin
-build-bin: ## build go binary
-	env GOARCH=amd64 GOOS=linux go build -ldflags="-s -w" -o cmd/bin/api cmd/api/main.go
+.PHONY: build
+build: ## build go binary
+	sls package
 
 .PHONY: deploy
-deploy: clean build-bin ## deploy by sls to remote
+deploy: clean build ## deploy by sls to remote
 	sls deploy --verbose
 
 .PHONY: rm
