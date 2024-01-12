@@ -11,7 +11,7 @@ import (
 	"github.com/shoet/lambda-authorizer-example/internal/interfaces"
 )
 
-var echoLambda *echoadapter.EchoLambda
+var echoLambdaHTTP *echoadapter.EchoLambdaV2
 
 func ExitOnErr(err error) {
 	fmt.Printf("Error: %v\n", err)
@@ -23,11 +23,14 @@ func init() {
 	if err != nil {
 		ExitOnErr(err)
 	}
-	echoLambda = echoadapter.New(srv)
+	echoLambdaHTTP = echoadapter.NewV2(srv)
 }
 
-func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	return echoLambda.ProxyWithContext(ctx, req)
+func Handler(ctx context.Context, req events.APIGatewayV2HTTPRequest) (events.APIGatewayV2HTTPResponse, error) {
+	fmt.Println("come handler")
+	h := req.Headers
+	fmt.Println(h)
+	return echoLambdaHTTP.ProxyWithContext(ctx, req)
 }
 
 func main() {

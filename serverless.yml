@@ -8,7 +8,8 @@ provider:
   runtime: provided.al2
   region: ap-northeast-1
   stage: dev
-  timeout: 60
+  timeout: 30
+  httpApi:
 
 package:
   patterns:
@@ -16,12 +17,12 @@ package:
     - ./cmd/bin/**
 
 functions:
-  example-api:
+  ExampleApi:
     handler: cmd/api/main.go
     role: GoAuthorizerLambda
     description: go echo lambda test
     events:
-      - http:
+      - httpApi:
           path: /{proxy+}
           method: any
 
