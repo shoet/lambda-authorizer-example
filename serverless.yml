@@ -10,6 +10,10 @@ provider:
   stage: dev
   timeout: 30
   httpApi:
+    authorizers:
+      customAuthorizer:
+        type: request
+        functionName: ExampleAuthorizer
 
 package:
   patterns:
@@ -17,6 +21,9 @@ package:
     - ./cmd/bin/**
 
 functions:
+  ExampleAuthorizer:
+    handler: cmd/auth/main.go
+
   ExampleApi:
     handler: cmd/api/main.go
     role: GoAuthorizerLambda
