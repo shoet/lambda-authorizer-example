@@ -11,7 +11,7 @@ provider:
   timeout: 30
   httpApi:
     authorizers:
-      customAuthorizer:
+      exampleAuthorizer:
         type: request
         functionName: ExampleAuthorizer
 
@@ -30,8 +30,13 @@ functions:
     description: go echo lambda test
     events:
       - httpApi:
-          path: /{proxy+}
-          method: any
+          path: /health
+          method: GET
+          authorizer:
+            name: exampleAuthorizer
+      - httpApi:
+          path: /login
+          method: POST
 
 custom:
   go:

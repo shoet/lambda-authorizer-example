@@ -21,8 +21,8 @@ func NewAuthService(kvs KeyValueStore) *AuthService {
 	}
 }
 
-func (a *AuthService) Login(ctx context.Context, username string, password string) (bool, error) {
-	value, err := a.KVS.Get(username)
+func (a *AuthService) Login(ctx context.Context, email, password string) (bool, error) {
+	value, err := a.KVS.Get(email)
 	if err != nil {
 		if errors.Is(err, infrastracture.ErrEntityNotFound) {
 			return false, nil
@@ -33,4 +33,8 @@ func (a *AuthService) Login(ctx context.Context, username string, password strin
 		return false, nil
 	}
 	return true, nil
+}
+
+func (a *AuthService) GenerateToken(ctx context.Context) (string, error) {
+	return "XXXXXDUMMYTOKENXXXXX", nil
 }

@@ -9,8 +9,8 @@ type KeyValueStore struct {
 }
 
 var constUser = map[string]interface{}{
-	"user1": "11111",
-	"user2": "22222",
+	"user1@example.com": "11111",
+	"user2@example.com": "22222",
 }
 
 func NewKeyValueStore() *KeyValueStore {
